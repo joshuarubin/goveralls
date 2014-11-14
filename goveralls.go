@@ -19,6 +19,7 @@ import (
 	"time"
 
 	"code.google.com/p/go-uuid/uuid"
+	"github.com/kr/pretty"
 )
 
 /*
@@ -130,6 +131,12 @@ func process() error {
 	if jobId == "" {
 		jobId = uuid.New()
 	}
+
+	jobId = os.Getenv("WERCKER_BUILD_ID")
+	if jobId == "" {
+		jobId = uuid.New()
+	}
+
 	if *repotoken == "" {
 		repotoken = nil // remove the entry from json
 	}
@@ -142,6 +149,9 @@ func process() error {
 		SourceFiles:  getCoverage(),
 		ServiceName:  *service,
 	}
+
+	pretty.Println("service_job_id", j.ServiceJobId)
+	pretty.Println("git params", j.Git)
 
 	b, err := json.Marshal(j)
 	if err != nil {
