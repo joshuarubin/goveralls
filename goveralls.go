@@ -150,6 +150,8 @@ func process() error {
 		ServiceName:  *service,
 	}
 
+	pretty.Println("GIT_BRANCH", os.Getenv("GIT_BRANCH"))
+	pretty.Println("WERCKER_GIT_BRANCH", os.Getenv("WERCKER_GIT_BRANCH"))
 	pretty.Println("service_job_id", j.ServiceJobId)
 	pretty.Println("git params", j.Git)
 
